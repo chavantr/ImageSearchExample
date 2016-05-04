@@ -1,6 +1,8 @@
 package com.microsoft.imageseach;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -67,7 +69,11 @@ public class ImageSearch extends AppCompatActivity implements OnProcessListener 
             public void onClick(View v) {
                 hide(txtSearch);
                 if (!txtSearch.getText().toString().isEmpty()) {
-                    initGetImages(txtSearch.getText().toString().trim());
+                    if (isConnected()) {
+                        initGetImages(txtSearch.getText().toString().trim());
+                    } else {
+                        show(getString(R.string.CHECK_INTERNET_CONNECTION), txtSearch);
+                    }
                 } else {
                     show("Please enter search title", v);
                 }
@@ -138,5 +144,31 @@ public class ImageSearch extends AppCompatActivity implements OnProcessListener 
     private void hide(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromInputMethod(view.getApplicationWindowToken(), 0);
+    }
+
+    public boolean isConnected() {
+        boolean isConnectedToInternet = false;
+        NetworkInfo networkInfoWiFi = null;
+        NetworkInfo networkInfoGSM = null;
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkInfoWiFi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        networkInfoGSM = connMgr
+                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        boolean isWifiConn = false;
+        if (networkInfoWiFi != null) {
+            isWifiConn = networkInfoWiFi.isConnected();
+        }
+        boolean isMobileConn = false;
+        if (networkInfoGSM != null) {
+            isMobileConn = networkInfoGSM.isConnected();
+        }
+        if (isWifiConn)
+            isConnectedToInternet = true;
+        else if (isMobileConn)
+            isConnectedToInternet = true;
+        else
+            isConnectedToInternet = false;
+
+        return isConnectedToInternet;
     }
 }

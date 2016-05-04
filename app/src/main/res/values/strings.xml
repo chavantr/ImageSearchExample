@@ -6,4 +6,5 @@
     <string name="INTERNAL_SERVER_ERROR">Internal server error.</string>
     <string name="NO_DATA_FOUND">No records found</string>
     <string name="OK">OK</string>
+    <string name="CHECK_INTERNET_CONNECTION">Please check internet connectivity.</string>
 </resources>
