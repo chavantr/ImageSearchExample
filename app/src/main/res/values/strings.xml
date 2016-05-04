@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ImageSearch</string>
+    <string name="action_settings">Settings</string>
+    <string name="ENTER_TITLE_TO_SEARCH">Enter title to search</string>
+    <string name="SEARCH">Search</string>
+    <string name="INTERNAL_SERVER_ERROR">Internal server error.</string>
+    <string name="NO_DATA_FOUND">No records found</string>
+    <string name="OK">OK</string>
+</resources>
